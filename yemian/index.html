@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <style>
+    .big{
+      width: 400px;
+      height: 300px;
+      border: 1px solid blue;
+      text-align: center;
+      line-height: 300px;
+      margin: 50px auto;
+    }
+    .after{
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="big">
+       <div class="welcome">
+      你好，
+      <a href="login.html">请登录</a>
+      <a href="register.html">立即注册</a>
+    </div>
+    <div class="after">
+      <span></span>欢迎回来！
+      <a class="xx" href="index.html">退出登录</a>
+      <a class="x" href="logout.html">注销账号</a>
+    </div>
+    </div>
+   
+  </body>
+  <script>
+    const _welcome = document.querySelector('.welcome');
+    const _after = document.querySelector('.after');
+    const _span = document.querySelector('span');
+    const _xx = document.querySelector('.xx');
+    const _x = document.querySelector('.x');
+    if(localStorage.getItem('usertel')){
+      _welcome.style.display = 'none';
+      _after.style.display = 'block';
+      _span.innerHTML = localStorage.getItem('usertel');
+    }
+  
+    _xx.onclick = function(){
+      localStorage.removeItem('usertel');
+      _welcome.style.display = 'block';
+      _after.style.display = 'none';
+    }
+  </script>
+  </html>

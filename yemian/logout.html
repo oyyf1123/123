@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>账号注销</title>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style>
+  .big {
+    width: 450px;
+    height: 300px;
+    border: 1px solid blue;
+    text-align: center;
+    line-height: 300px;
+    margin: 50px auto;
+  }
+</style>
+
+<body>
+  <div class="big">
+    <span></span>
+    <strong>您确定要离开我们吗？</strong>
+    <input type="button" id="del" value="确认注销">
+    <p class="lastspan"></p>
+  </div>
+</body>
+<script>
+  $('span').html(localStorage.getItem('usertel'))
+  $('#del').on('click', function () {
+    $.ajax({
+      url: 'http://localhost:3500/logout',
+      method: 'DELETE',
+      data: {
+        tel: localStorage.getItem('usertel')
+      },
+      success(result) {
+        const data = JSON.parse(result);
+        switch (data.status) {
+          case 0:
+            $('.lastspan').html(data.info)
+            break;
+          case 1:
+            console.log(111);
+            localStorage.removeItem('usertel');
+            $('span').html('2秒后为您跳转主页');
+            $('strong').html('');
+            $('.lastspan').html(data.info);
+            setTimeout(() => {
+              window.location.href = './index.html'
+            }, 2000);
+            break;
+          default:
+            break;
+        }
+      }
+    })
+  })
+</script>
+
+</html>
